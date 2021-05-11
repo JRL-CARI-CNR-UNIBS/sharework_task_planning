@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="starting_recipe" default="0"/>
+  <param name="starting_recipe_number" value="$(arg starting_recipe)"/>
+
+  <arg name="mongo_collection" default="prova"/>
+  <param name="mongo_collection_results" value="$(arg mongo_collection)"/>
+
+  <!-- If recipe_path is set, all the recipes in folder "recipe_path" are executed -->
+
+  <!--  <arg name="recipe" value="$(find task_planner_interface)/plans/training/recipe_0.yaml" />
+  <param name="recipe" value="$(arg recipe)" /> -->
+
+  <arg name="recipe_path" value="$(find task_planner_interface)/plans/training/" />
+  <param name="recipe_path" value="$(arg recipe_path)" />
+
+  <param name="autosync" value="true" />
+  <param name="go_home_after_execution" value="true" />
+
+  <arg name="robot_node" value="robot_task_interface" />
+  <arg name="human_node" value="human_task_interface" />
+
+  <arg name="robot_request_from_planner" value="/sharework/test/stiima/motion" />
+  <arg name="human_request_from_planner" value="/sharework/test/stiima/human" />
+  <arg name="robot_feedback_to_planner" value="/sharework/test/stiima/motion/feedback" />
+  <arg name="human_feedback_to_planner" value="/sharework/test/stiima/human/feedback" />
+
+  <node name="$(arg robot_node)" pkg="task_planner_interface" type="robot_node"  output="screen" >
+    <param name="topic_request_from_planner" value="$(arg robot_request_from_planner)" />
+    <param name="topic_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+    <param name="group_name" value="manipulator" />
+  </node>
+
+  <node name="$(arg human_node)" pkg="task_planner_interface" type="robot_node" output="screen" >
+    <param name="topic_request_from_planner" value="$(arg human_request_from_planner)" />
+    <param name="topic_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
+    <param name="group_name" value="human_right_arm" />
+  </node>
+
+  <node name="task_planner_dispatcher" pkg="task_planner_dispatcher" type="dispatcher_double_sync" output="screen" />
+
+  <node name="syncronization_node" pkg="task_planner_interface" type="syncronization_node"  output="screen" >
+    <param name="number_of_agents" value="2"/>
+  </node>
+
+</launch>

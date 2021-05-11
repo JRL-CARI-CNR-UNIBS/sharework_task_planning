@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="platinum" default="false"/>
+  <arg name="hrc" default="false"/>
+  <arg name="starting_recipe" default="0"/>
+  <param name="starting_recipe_number" value="$(arg starting_recipe)"/>
+  <param name="topic_feedback_from_hmi" value="task_feedback_from_hmi" />
+
+  <arg name="recipe" value="$(find sharework_task_planning)/plans/example_cembre.yaml" />
+  <param name="recipe" value="$(arg recipe)" /> 
+
+  <!-- If recipe_path is set, all the recipes in folder "recipe_path" are executed (only if platinum=false, see below) -->
+
+  <arg name="mongo_collection" default="prova"/>
+  <param name="mongo_collection_results" value="$(arg mongo_collection)"/>
+
+  <!--<arg name="recipe_path" default="$(find task_planner_interface)/plans/multi-obj/v4/" />
+  <param name="recipe_path" value="$(arg recipe_path)" /> -->
+
+  <param name="autosync" value="false" />
+  <param name="go_home_after_execution" value="false" />
+  
+  <arg name="robot_node" value="robot_task_interface" />
+  <arg name="human_node" value="human_task_interface" />
+
+  <arg name="robot_request_from_planner" value="/sharework/test/stiima/motion" />
+  <arg name="human_request_from_planner" value="/sharework/test/stiima/human" />
+  <arg name="robot_feedback_to_planner" value="/sharework/test/stiima/motion/feedback" />
+  <arg name="human_feedback_to_planner" value="/sharework/test/stiima/human/feedback" />
+
+  <node name="$(arg robot_node)" pkg="task_planner_interface" type="robot_node"  output="screen" >
+    <param name="topic_request_from_planner" value="$(arg robot_request_from_planner)" />
+    <param name="topic_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+    <param name="group_name" value="manipulator" />
+  </node>
+
+  <node if="$(arg hrc)" name="$(arg human_node)" pkg="task_planner_interface" type="human_node" output="screen" >
+    <param name="topic_request_from_planner" value="$(arg human_request_from_planner)" />
+    <param name="topic_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
+    <param name="group_name" value="human_cembre_real" />
+  </node>
+
+  <!-- if platinum=false, the task planner is simulated by dispatching the recipe -->
+
+  <group unless="$(arg platinum)">
+    <node unless="$(arg hrc)" name="task_planner_dispatcher" pkg="task_planner_dispatcher" type="dispatcher_single" output="screen" >
+      <param name="topic_request_from_planner" value="$(arg robot_request_from_planner)" />
+      <param name="topic_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+      <param name="plan_name" value="robot_plan" />
+      <param name="reset" value="false" />
+    </node>
+    <node if="$(arg hrc)" name="task_planner_dispatcher" pkg="task_planner_dispatcher" type="dispatcher_double_async" output="screen" >
+      <param name="robot_request_from_planner" value="$(arg robot_request_from_planner)" />
+      <param name="robot_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+      <param name="human_request_from_planner" value="$(arg human_request_from_planner)" />
+      <param name="human_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
+    </node>
+  </group>
+
+</launch>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node pkg="sharework_imu_hmi" type="sharework_imu_hmi_node" name="sharework_imu_hmi_node" output="screen" >
+    <param name="topic_task_request" value="/sharework/test/stiima/human" />
+    <param name="topic_task_feedback" value="/sharework/test/stiima/human/feedback" />
+    <param name="gesture_command" value="FIST" />
+    <!--    Possible gestures: "FIST" "WAVE IN" "WAVE OUT" -->
+  </node>
+
+</launch>

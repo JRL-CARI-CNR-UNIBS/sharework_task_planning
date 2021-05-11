@@ -1,0 +1,24 @@
+robot_plan:
+  - cmd_id: '0'
+    task: pick-squadra-grande
+  - cmd_id: '1'
+    task: place-box-A
+  - cmd_id: '2'
+    task: pick-squadra-piccola    
+  - cmd_id: '3'
+    task: place-box-B
+  - cmd_id: '4'
+    task: end
+
+human_plan:
+  - cmd_id: '100'
+    task: pick-squadra-piccola
+  - cmd_id: '101'
+    task: place-box-A
+  - cmd_id: '102'
+    task: pick-squadra-piccola
+  - cmd_id: '103'
+    type: place-box-B
+    cfg_start: Null
+  - cmd_id: '104'
+    task: end
