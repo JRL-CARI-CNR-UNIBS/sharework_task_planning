@@ -8,19 +8,25 @@
   <param name="starting_recipe_number" value="$(arg starting_recipe)"/>
 
   <arg name="recipe" value="$(find sharework_task_planning)/plans/example_cembre.yaml" />
-  <param name="recipe" value="$(arg recipe)" /> 
+  <param name="recipe" value="$(arg recipe)" />
 
   <!-- If recipe_path is set, all the recipes in folder "recipe_path" are executed (only if platinum=false, see below) -->
 
-  <arg name="mongo_collection" default="prova"/>
-  <param name="mongo_collection_results" value="$(arg mongo_collection)"/>
+  <arg name="mongo_database" default="sharework_cembre"/>
+  <param name="mongo_database" value="$(arg mongo_database)"/>
+
+  <arg name="mongo_collection_tasks" default="hrc_task_properties"/>
+  <param name="mongo_collection_tasks" value="$(arg mongo_collection_tasks)"/>
+
+  <arg name="mongo_collection_results" default="hrc_task_results"/>
+  <param name="mongo_collection_results" value="$(arg mongo_collection_results)"/>
 
   <!--<arg name="recipe_path" default="$(find task_planner_interface)/plans/multi-obj/v4/" />
   <param name="recipe_path" value="$(arg recipe_path)" /> -->
 
   <param name="autosync" value="false" />
   <param name="go_home_after_execution" value="false" />
-  
+
   <arg name="robot_node" value="robot_task_interface" />
   <arg name="human_node" value="human_task_interface" />
 

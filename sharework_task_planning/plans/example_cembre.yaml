@@ -4,7 +4,7 @@ robot_plan:
   - cmd_id: '1'
     task: place-box-A
   - cmd_id: '2'
-    task: pick-squadra-piccola    
+    task: pick-squadra-piccola
   - cmd_id: '3'
     task: place-box-B
   - cmd_id: '4'

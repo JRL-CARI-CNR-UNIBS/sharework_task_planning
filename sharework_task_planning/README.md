@@ -1,4 +1,4 @@
-Launchers to run task_planner_interface with Sharework cell. 
+Launchers to run task_planner_interface with Sharework cell.
 
 - hrc_fake.launch is intended to be used for simulations
 - hrc_real.launch is intended to be used for real experiments
@@ -12,13 +12,18 @@ Both launchers runs an instance of robot_node to execution robot actions. The tw
 
 Run an instance of mongod (path may vary depending on your mongo settings):
 ```
-mongod --dbpath ~/data/db 
+mongod --dbpath ~/data/db
 
 ```
 Launch sharework_cembre cell:
 ```
 roslaunch sharework_cembre_configurations fake.launch
 ```
+Launch manipulation skill servers:
+```
+roslaunch sharework_cembre_skills skills.launch
+```
+
 (Optional) Launch GUI:
 ```
 roslaunch task_planner_gui gui.launch
@@ -36,4 +41,3 @@ roslaunch sharework_task_planning hrc_fake.launch
 - name="recipe_path" value="path_to_folder" : used only if platinum=false; execute all the recipe in path_to_folder
 - name="recipe" value="path_to_recipe" : used only if platinum = false and recipe_path is commented
 - name="mongo_collection" default="string" : name of the mongo collection where to save results
-
