@@ -19,6 +19,5 @@ human_plan:
     task: pick-squadra-piccola
   - cmd_id: '103'
     type: place-box-B
-    cfg_start: Null
   - cmd_id: '104'
     task: end
