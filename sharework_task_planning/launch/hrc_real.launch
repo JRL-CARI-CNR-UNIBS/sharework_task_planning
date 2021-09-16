@@ -8,12 +8,13 @@
   <param name="starting_recipe_number" value="$(arg starting_recipe)"/>
   <param name="topic_feedback_from_hmi" value="task_feedback_from_hmi" />
 
-  <arg name="recipe" value="$(find sharework_task_planning)/plans/example_cembre.yaml" />
+  <!--<arg name="recipe" value="$(find sharework_task_planning)/plans/recipe_cembre_lms.yaml" />  -->
+  <arg name="recipe" value="$(find sharework_task_planning)/plans/recipe_cembre_lms.yaml" /> 
   <param name="recipe" value="$(arg recipe)" />
 
   <!-- If recipe_path is set, all the recipes in folder "recipe_path" are executed (only if platinum=false, see below) -->
 
-  <arg name="mongo_database" default="sharework_cembre"/>
+  <arg name="mongo_database" default="sharework"/>
   <param name="mongo_database" value="$(arg mongo_database)"/>
   <arg name="mongo_collection_tasks" default="hrc_task_properties"/>
   <param name="mongo_collection_tasks" value="$(arg mongo_collection_tasks)"/>
@@ -40,11 +41,12 @@
     <param name="group_name" value="manipulator" />
   </node>
 
-  <node if="$(arg hrc)" name="$(arg human_node)" pkg="task_planner_interface" type="human_node" output="screen" >
+  <!--<node if="$(arg hrc)" name="$(arg human_node)" pkg="task_planner_interface" type="human_node" output="screen" >
     <param name="topic_request_from_planner" value="$(arg human_request_from_planner)" />
     <param name="topic_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
     <param name="group_name" value="human_cembre_real" />
   </node>
+  -->
 
   <!-- if platinum=false, the task planner is simulated by dispatching the recipe -->
 

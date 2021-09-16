@@ -12,7 +12,7 @@
 
   <!-- If recipe_path is set, all the recipes in folder "recipe_path" are executed (only if platinum=false, see below) -->
 
-  <arg name="mongo_database" default="sharework_cembre"/>
+  <arg name="mongo_database" default="sharework"/>
   <param name="mongo_database" value="$(arg mongo_database)"/>
 
   <arg name="mongo_collection_tasks" default="hrc_task_properties"/>
