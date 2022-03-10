@@ -1,0 +1,42 @@
+human_plan:
+- cmd_id: '1000'
+  task: go_to_human_home
+  human_tasks:
+  - ''
+- cmd_id: '1001'
+  task: go_to_human_away
+  human_tasks:
+  - ''
+- cmd_id: '1002'
+  task: go_to_human_home
+  human_tasks:
+  - ''
+- cmd_id: '1003'
+  task: go_to_human_away
+  human_tasks:
+  - ''
+- cmd_id: '1004'
+  task: end
+  human_tasks:
+  - ''
+robot_plan:
+- cmd_id: '0'
+  task: go_to_ur5_home
+  human_tasks:
+  - ''
+- cmd_id: '1'
+  task: go_to_ur5_away
+  human_tasks:
+  - ''
+- cmd_id: '2'
+  task: go_to_ur5_home
+  human_tasks:
+  - ''
+- cmd_id: '3'
+  task: go_to_ur5_away
+  human_tasks:
+  - ''
+- cmd_id: '10'
+  task: end
+  human_tasks:
+  - ''

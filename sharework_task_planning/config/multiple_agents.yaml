@@ -1,0 +1,5 @@
+agents:
+  robot: 
+    - motion
+  human: 
+    - human

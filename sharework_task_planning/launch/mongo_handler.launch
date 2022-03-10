@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node name="mongo_handler" pkg="task_planner_interface" type="mongoHandler.py"  output="screen" >
+    <rosparam command="load" file="$(find hrc_mosaic_task_planning_interface)/config/mongo_configuration.yaml" />
+  </node>
+
+
+</launch>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="hrc" default="false"/>
+
+  <arg name="group_name" default="agent"/>
+  <arg name="agent_node" default="agent_task_executor" />
+  <arg name="home_position" default="agent_home" />
+  <arg name="retry_position" default="agent_away" />
+
+  <arg name="topic_request_from_planner" default="/sharework/test/stiima/motion" />
+
+  <arg name="go_home_after_execution" default="false" />
+  <param name="go_home_after_execution" value="$(arg go_home_after_execution)" />
+
+
+
+<!-- launch-prefix="gdb -ex run meno meno args" -->
+  <node name="$(arg agent_node)" pkg="task_planner_interface" type="task_executor_node" output="screen" >
+    <param name="topic_request_from_planner" value="$(arg topic_request_from_planner)" />
+    <param name="group_name" value="$(arg group_name)" />
+    <param name="home_position" value="$(arg home_position)" />
+    <param name="retry_position" value="$(arg retry_position)" />
+  </node>
+
+
+
+
+
+</launch>
