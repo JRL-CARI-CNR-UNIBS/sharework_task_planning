@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="hrc" default="true"/>
+
+  <arg name="prefix" default="/sharework/test/stiima"/>
+
+  <arg name="robot_request_from_planner" default="$(arg prefix)/motion" />
+  <arg name="human_request_from_planner" default="$(arg prefix)/human" />
+  <arg name="robot_feedback_to_planner" default="$(arg prefix)/motion/feedback" />
+  <arg name="human_feedback_to_planner" default="$(arg prefix)/human/feedback" />
+
+  <arg name="recipe" default="$(find sharework_task_planning)/plans/recipe_strane.yaml" />
+  <arg name="autosync" default="false" />
+
+  <param name="recipe" value="$(arg recipe)" />
+  <param name="autosync" value="$(arg autosync)" />
+
+  <node unless="$(arg hrc)" name="task_planner_dispatcher" pkg="task_planner_dispatcher" type="dispatcher_single" output="screen" >
+    <param name="topic_request_from_planner" value="$(arg robot_request_from_planner)" />
+    <param name="topic_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+    <param name="plan_name" value="robot_plan" />
+    <param name="reset" value="false" />
+  </node>
+  <node if="$(arg hrc)" name="task_planner_dispatcher" pkg="task_planner_dispatcher" type="dispatcher_double_async" output="screen" >
+    <param name="robot_request_from_planner" value="$(arg robot_request_from_planner)" />
+    <param name="robot_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+    <param name="human_request_from_planner" value="$(arg human_request_from_planner)" />
+    <param name="human_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
+  </node>
+
+  <!-- <node if="$(arg hrc)" name="syncronization_node" pkg="task_planner_interface" type="syncronization_node"  output="screen" >
+    <param name="number_of_agents" value="2"/>
+  </node> -->
+
+
+</launch>

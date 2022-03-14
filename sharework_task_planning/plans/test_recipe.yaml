@@ -1,10 +1,12 @@
 human_plan:
 - cmd_id: '1000'
   task: go_to_human_home
+  description: "human go home"
   human_tasks:
   - ''
 - cmd_id: '1001'
   task: go_to_human_away
+  description: "human go away"
   human_tasks:
   - ''
 - cmd_id: '1002'
@@ -22,10 +24,12 @@ human_plan:
 robot_plan:
 - cmd_id: '0'
   task: go_to_ur5_home
+  description: "robot go home"
   human_tasks:
   - ''
 - cmd_id: '1'
   task: go_to_ur5_away
+  description: "robot go away"
   human_tasks:
   - ''
 - cmd_id: '2'
