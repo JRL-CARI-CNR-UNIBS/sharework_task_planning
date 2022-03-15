@@ -21,9 +21,9 @@
 
   <!-- TASK PLANNER INTERFACE NODE-->
   <include file="$(find hrc_mosaic_task_planning_interface)/launch/task_service_manager.launch" >
-      <arg name="hrc" value="$(arg hrc)" />
-      <arg name="recipe_name" value="$(arg recipe_name)" />
-      <arg name="prefix" value="$(arg prefix)" />
+    <arg name="hrc" value="$(arg hrc)" />
+    <arg name="recipe_name" value="$(arg recipe_name)" />
+    <arg name="prefix" value="$(arg prefix)" />
   </include>
 
   <!-- DB UPDATE NODE -->
@@ -31,17 +31,23 @@
 
   <!-- AGENTS NODES -->
   <include file="$(find hrc_mosaic_task_planning_interface)/launch/robot_executor.launch" >
-      <arg name="group_name" value="$(arg group_name_robot)" />
-      <arg name="agent_node" value="robot_task_executor" />
-      <arg name="home_position" value="ur5_home"/>
-      <arg name="retry_position" value="ur5_away"/>
-      <arg name="topic_request_from_planner" value="$(arg robot_request_from_planner)"/>
-      <arg name="go_home_after_execution" value="false"/>
+    <arg name="group_name" value="$(arg group_name_robot)" />
+    <arg name="agent_node" value="robot_task_executor" />
+    <arg name="home_position" value="ur5_home"/>
+    <arg name="retry_position" value="ur5_away"/>
+    <arg name="topic_request_from_planner" value="$(arg robot_request_from_planner)"/>
+    <arg name="go_home_after_execution" value="false"/>
+  </include>
+
+  <include file="$(find hrc_mosaic_task_planning_interface)/launch/sequence_executor.launch" >
+    <arg name="group_name" value="$(arg group_name_robot)" />
+    <arg name="agent_node" value="robot_task_executor" />
+    <arg name="topic_request_from_planner" value="$(arg robot_request_from_planner)"/>
   </include>
 
   <include if="$(arg hrc)" file="$(find hrc_mosaic_task_planning_interface)/launch/human_real_executor.launch" >
-      <arg name="agent_node" value="human_task_executor" />
-      <arg name="topic_request_from_planner" value="$(arg human_request_from_planner)"/>
+    <arg name="agent_node" value="human_task_executor" />
+    <arg name="topic_request_from_planner" value="$(arg human_request_from_planner)"/>
   </include>
 
 </launch>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="group_name" default="agent"/>
+  <arg name="agent_node" default="agent_task_executor" />
+
+  <arg name="topic_request_from_planner" default="/sharework/test/stiima/motion" />
+
+  <rosparam command="load" ns="recipe_mount_P1__21A1122" file="$(find sharework_cembre_skills)/config/recipes/recipe_mount_P1__21A1122.yaml"/>
+  <rosparam command="load" ns="recipe_mount_P2__21A1122" file="$(find sharework_cembre_skills)/config/recipes/recipe_mount_P2__21A1122.yaml"/>
+  <rosparam command="load" ns="recipe_unmount_P1__21A1122" file="$(find sharework_cembre_skills)/config/recipes/recipe_unmount_P1__21A1122.yaml"/>
+  <rosparam command="load" ns="recipe_unmount_P2__21A1122" file="$(find sharework_cembre_skills)/config/recipes/recipe_unmount_P2__21A1122.yaml"/>
+
+  <node name="$(arg agent_node)_sequence_executor" pkg="task_planner_interface" type="sequence_executor_node" output="screen" >
+    <param name="topic_request_from_planner" value="$(arg topic_request_from_planner)" />
+    <param name="group_name" value="$(arg group_name)" />
+  </node>
+
+</launch>

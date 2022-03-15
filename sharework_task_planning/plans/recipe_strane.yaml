@@ -11,6 +11,7 @@ human_plan:
   - ''
 - cmd_id: '1002'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '1003'
@@ -40,6 +41,7 @@ human_plan:
   - ''
 - cmd_id: '1008'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '1009'
@@ -79,6 +81,7 @@ human_plan:
   - ''
 - cmd_id: '1016'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '1017'
@@ -88,11 +91,13 @@ human_plan:
   - ''
 - cmd_id: '1018'
   task: end
+  description: "end"
   human_tasks:
   - ''
 robot_plan:
 - cmd_id: '0'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '1'
@@ -107,6 +112,7 @@ robot_plan:
   - ''
 - cmd_id: '3'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '4'
@@ -121,9 +127,11 @@ robot_plan:
   - ''
 - cmd_id: '6'
   task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '7'
   task: end
+  description: "end"
   human_tasks:
   - ''
