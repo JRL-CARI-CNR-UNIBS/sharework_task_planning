@@ -11,7 +11,7 @@
   <arg name="robot_feedback_to_planner" default="$(arg prefix)/motion/feedback" />
   <arg name="human_feedback_to_planner" default="$(arg prefix)/human/feedback" />
 
-  <arg name="recipe" default="$(find hrc_mosaic_task_planning_interface)/plans/test_samuele.yaml" />
+  <arg name="recipe" default="$(find sharework_task_planning)/plans/test_samuele.yaml" />
   <arg name="autosync" default="false" />
 
   <param name="recipe" value="$(arg recipe)" />

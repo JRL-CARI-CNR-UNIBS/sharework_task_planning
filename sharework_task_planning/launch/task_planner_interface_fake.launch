@@ -14,20 +14,20 @@
   <arg name="human_request_from_planner" value="$(arg prefix)/human" />
 
   <!-- LOAD PARAMETERS ABOUT AGENTS -->
-  <rosparam command="load" file="$(find hrc_mosaic_task_planning_interface)/config/single_agents.yaml" />
+  <rosparam command="load" file="$(find sharework_task_planning)/config/single_agents.yaml" />
 
   <!-- TASK PLANNER INTERFACE NODE-->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/task_service_manager.launch" >
+  <include file="$(find sharework_task_planning)/launch/task_service_manager.launch" >
       <arg name="hrc" value="false" />
       <arg name="recipe_name" value="$(arg recipe_name)" />
       <arg name="prefix" value="$(arg prefix)" />
   </include>
 
   <!-- DB UPDATE NODE -->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/mongo_handler.launch" />
+  <include file="$(find sharework_task_planning)/launch/mongo_handler.launch" />
 
   <!-- AGENTS NODES -->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/robot_executor.launch" >
+  <include file="$(find sharework_task_planning)/launch/robot_executor.launch" >
       <arg name="group_name" value="$(arg group_name_robot)" />
       <arg name="agent_node" value="robot_task_executor" />
       <arg name="home_position" value="ur5_home"/>

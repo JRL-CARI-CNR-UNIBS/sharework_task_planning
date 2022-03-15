@@ -2,20 +2,16 @@
 
 <launch>
 
-  <arg name="hrc" default="false"/>
-
   <arg name="agent_node" default="human_task_executor" />
-
-
   <arg name="topic_request_from_planner" default="/sharework/test/stiima/human" />
-
-
-
-
 
 <!-- launch-prefix="gdb -ex run meno meno args" -->
   <node name="$(arg agent_node)" pkg="task_planner_interface" type="human_executor_node" output="screen" >
     <param name="topic_request_from_planner" value="$(arg topic_request_from_planner)" />
+    <!-- <remap from="/sharework/interfaces/request" to="/hmi/task_execution_request"/>
+    <remap from="/sharework/interfaces/feedback" to="/hmi/task_execution_result"/> -->
+    <remap from="/hmi/task_execution_request" to="/sharework/interfaces/request"/>
+    <remap from="/hmi/task_execution_result" to="/sharework/interfaces/feedback"/>
   </node>
 
 

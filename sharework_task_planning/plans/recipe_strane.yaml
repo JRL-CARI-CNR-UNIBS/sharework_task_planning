@@ -1,11 +1,11 @@
 human_plan:
 - cmd_id: '1000'
-  task: "Move_pallet_1_P0_to_P2"
+  task: "Move_pallet_19A0218_P0_to_P2"
   description: "Sposta il primo pallet in postazione 2"
   human_tasks:
   - ''
 - cmd_id: '1001'
-  task: "Move_pallet_2_P0_to_P1"
+  task: "Move_pallet_21A1122_P0_to_P1"
   description: "Sposta il secondo pallet in postazione 1"
   human_tasks:
   - ''
@@ -15,67 +15,67 @@ human_plan:
   human_tasks:
   - ''
 - cmd_id: '1003'
-  task: "Unmount_pallet_1_P2"
+  task: "Unmount_pallet_19A0218_P2"
   description: "Smonta il pallet in postazione 2"
   human_tasks:
   - ''
 - cmd_id: '1004'
-  task: "Extract_pezzo_pallet_1_P2"
+  task: "Extract_pezzo_pallet_19A0218_P2"
   description: "Estrai il pezzo dal pallet in postazione 2"
   human_tasks:
   - ''
 - cmd_id: '1005'
-  task: "Insert_pezzo_pallet_1_P2"
+  task: "Insert_pezzo_pallet_19A0218_P2"
   description: "Inserisci il nuovo pezzo nel pallet in postazione 2"
   human_tasks:
   - ''
 - cmd_id: '1006'
-  task: "Mount_pallet_1_P2"
+  task: "Mount_pallet_19A0218_P2"
   description: "Rimonta il pallet in postazione 2"
   human_tasks:
   - ''
 - cmd_id: '1007'
-  task: "Move_pallet_1_P2_to_P3"
-  description: "Sposta il pallet da postazione 2 a 3"
-  human_tasks:
-  - ''
-- cmd_id: '1008'
   task: "wait"
   description: "wait"
   human_tasks:
   - ''
+- cmd_id: '1008'
+  task: "Move_pallet_19A0218_P2_to_P3"
+  description: "Sposta il pallet da postazione 2 a 3"
+  human_tasks:
+  - ''
 - cmd_id: '1009'
-  task: "Move_pallet_2_P1_to_P2"
+  task: "Move_pallet_21A1122_P1_to_P2"
   description: "Sposta il pallet da postazione 1 a 2"
   human_tasks:
   - ''
 - cmd_id: '1010'
-  task: "Move_pallet_3_P0_to_P1"
+  task: "Move_pallet_21A1121_P0_to_P1"
   description: "Sposta il nuovo pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '1011'
-  task: "Unmount_pallet_3_P1"
+  task: "Unmount_pallet_21A1121_P1"
   description: "Smonta il pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '1012'
-  task: "Extract_pezzo_pallet_3_P1"
+  task: "Extract_pezzo_pallet_21A1121_P1"
   description: "Estrai il pezzo dal pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '1013'
-  task: "Insert_pezzo_pallet_3_P1"
+  task: "Insert_pezzo_pallet_21A1121_P1"
   description: "Inserisci il nuovo pezzo nel pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '1014'
-  task: "Mount_pallet_3_P1"
+  task: "Mount_pallet_21A1121_P1"
   description: "Rimonta il pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '1015'
-  task: "Move_pallet_2_P2_to_P3"
+  task: "Move_pallet_21A1122_P2_to_P3"
   description: "Sposta il pallet da postazione 2 a 3"
   human_tasks:
   - ''
@@ -85,7 +85,7 @@ human_plan:
   human_tasks:
   - ''
 - cmd_id: '1017'
-  task: "Move_pallet_3_P1_to_P3"
+  task: "Move_pallet_21A1121_P1_to_P3"
   description: "Sposta il pallet da postazione 1 a 3"
   human_tasks:
   - ''
@@ -101,36 +101,26 @@ robot_plan:
   human_tasks:
   - ''
 - cmd_id: '1'
-  task: "Unmount_pallet_2_P1"
+  task: "Unmount_pallet_21A1122_P1"
   description: "Smonta il pallet in postazione 1"
   human_tasks:
   - ''
 - cmd_id: '2'
-  task: "Extract_pezzo_pallet_2_P1"
-  description: "Estrai il pezzo dal pallet in postazione 1"
+  task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '3'
-  task: "wait"
-  description: "wait"
-  human_tasks:
-  - ''
-- cmd_id: '4'
-  task: "Insert_pezzo_pallet_2_P2"
-  description: "Inserisci il nuovo pezzo nel pallet in postazione 2"
-  human_tasks:
-  - ''
-- cmd_id: '5'
-  task: "Mount_pallet_2_P2"
+  task: "Mount_pallet_21A1122_P2"
   description: "Rimonta il pallet in postazione 2"
   human_tasks:
   - ''
-- cmd_id: '6'
+- cmd_id: '4'
   task: "wait"
   description: "wait"
   human_tasks:
   - ''
-- cmd_id: '7'
+- cmd_id: '5'
   task: end
   description: "end"
   human_tasks:

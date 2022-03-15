@@ -1,5 +1,5 @@
-mongo_database: "sharework_db"
-mongo_collection_tasks: "tasks_properties"
+mongo_database: "sharework_WP6_experiments"
+mongo_collection_tasks: "task_properties"
 mongo_collection_results: "dummy_results"
 coll_risk_name: "dummy_risks"
 coll_duration_name: "dummy_durations"

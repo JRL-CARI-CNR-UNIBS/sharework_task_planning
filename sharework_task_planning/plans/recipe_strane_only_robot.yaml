@@ -1,0 +1,16 @@
+robot_plan:
+- cmd_id: '1'
+  task: "Unmount_pallet_21A1122_P1"
+  description: "Smonta il pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '2'
+  task: "Mount_pallet_21A1122_P1"
+  description: "Rimonta il pallet in postazione 2"
+  human_tasks:
+  - ''
+- cmd_id: '3'
+  task: end
+  description: "end"
+  human_tasks:
+  - ''

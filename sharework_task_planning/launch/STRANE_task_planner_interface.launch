@@ -2,9 +2,9 @@
 
 <launch>
 
-  <arg name="group_name_robot" default="ur5_on_guide"/>
+  <arg name="group_name_robot" default="manipulator"/>
 
-  <arg name="hrc" default="true"/>
+  <arg name="hrc" default="false"/>
 
   <arg name="recipe_name" default="recipe" />
   <param name="recipe_name" value="$(arg recipe_name)" />
@@ -16,36 +16,37 @@
   <arg name="human_request_from_planner" value="$(arg prefix)/human" />
 
   <!-- LOAD PARAMETERS ABOUT AGENTS -->
-  <rosparam if="$(arg hrc)" command="load" file="$(find hrc_mosaic_task_planning_interface)/config/multiple_agents.yaml" />
-  <rosparam unless="$(arg hrc)"  command="load" file="$(find hrc_mosaic_task_planning_interface)/config/single_agents.yaml" />
+  <rosparam if="$(arg hrc)" command="load" file="$(find sharework_task_planning)/config/multiple_agents.yaml" />
+  <rosparam unless="$(arg hrc)"  command="load" file="$(find sharework_task_planning)/config/single_agents.yaml" />
 
   <!-- TASK PLANNER INTERFACE NODE-->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/task_service_manager.launch" >
+  <include file="$(find sharework_task_planning)/launch/task_service_manager.launch" >
     <arg name="hrc" value="$(arg hrc)" />
     <arg name="recipe_name" value="$(arg recipe_name)" />
     <arg name="prefix" value="$(arg prefix)" />
+    <arg name="is_human_real" value="$(arg hrc)" />
   </include>
 
   <!-- DB UPDATE NODE -->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/mongo_handler.launch" />
+  <include file="$(find sharework_task_planning)/launch/mongo_handler.launch" />
 
   <!-- AGENTS NODES -->
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/robot_executor.launch" >
+  <include file="$(find sharework_task_planning)/launch/robot_executor.launch" >
     <arg name="group_name" value="$(arg group_name_robot)" />
     <arg name="agent_node" value="robot_task_executor" />
-    <arg name="home_position" value="ur5_home"/>
-    <arg name="retry_position" value="ur5_away"/>
+    <arg name="home_position" value="home"/>
+    <arg name="retry_position" value="home"/>
     <arg name="topic_request_from_planner" value="$(arg robot_request_from_planner)"/>
     <arg name="go_home_after_execution" value="false"/>
   </include>
 
-  <include file="$(find hrc_mosaic_task_planning_interface)/launch/sequence_executor.launch" >
+  <include file="$(find sharework_task_planning)/launch/sequence_executor.launch" >
     <arg name="group_name" value="$(arg group_name_robot)" />
     <arg name="agent_node" value="robot_task_executor" />
     <arg name="topic_request_from_planner" value="$(arg robot_request_from_planner)"/>
   </include>
 
-  <include if="$(arg hrc)" file="$(find hrc_mosaic_task_planning_interface)/launch/human_real_executor.launch" >
+  <include if="$(arg hrc)" file="$(find sharework_task_planning)/launch/human_real_executor.launch" >
     <arg name="agent_node" value="human_task_executor" />
     <arg name="topic_request_from_planner" value="$(arg human_request_from_planner)"/>
   </include>
