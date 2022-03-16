@@ -4,7 +4,7 @@
 
   <arg name="group_name_robot" default="manipulator"/>
 
-  <arg name="hrc" default="false"/>
+  <arg name="hrc" default="true"/>
 
   <arg name="recipe_name" default="recipe" />
   <param name="recipe_name" value="$(arg recipe_name)" />

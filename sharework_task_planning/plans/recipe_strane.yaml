@@ -34,19 +34,24 @@ human_plan:
   description: "Rimonta il pallet in postazione 2"
   human_tasks:
   - ''
-- cmd_id: '1007'
-  task: "wait"
-  description: "wait"
-  human_tasks:
-  - ''
 - cmd_id: '1008'
   task: "Move_pallet_19A0218_P2_to_P3"
   description: "Sposta il pallet da postazione 2 a 3"
   human_tasks:
   - ''
+- cmd_id: '1007'
+  task: "wait"
+  description: "wait"
+  human_tasks:
+  - ''
 - cmd_id: '1009'
   task: "Move_pallet_21A1122_P1_to_P2"
   description: "Sposta il pallet da postazione 1 a 2"
+  human_tasks:
+  - ''
+- cmd_id: '1020'
+  task: "wait"
+  description: "wait"
   human_tasks:
   - ''
 - cmd_id: '1010'
@@ -74,14 +79,14 @@ human_plan:
   description: "Rimonta il pallet in postazione 1"
   human_tasks:
   - ''
-- cmd_id: '1015'
-  task: "Move_pallet_21A1122_P2_to_P3"
-  description: "Sposta il pallet da postazione 2 a 3"
-  human_tasks:
-  - ''
 - cmd_id: '1016'
   task: "wait"
   description: "wait"
+  human_tasks:
+  - ''
+- cmd_id: '1015'
+  task: "Move_pallet_21A1122_P2_to_P3"
+  description: "Sposta il pallet da postazione 2 a 3"
   human_tasks:
   - ''
 - cmd_id: '1017'
@@ -110,9 +115,24 @@ robot_plan:
   description: "wait"
   human_tasks:
   - ''
+- cmd_id: '7'
+  task: "GoHome"
+  description: "robot go home"
+  human_tasks:
+  - ''
+- cmd_id: '6'
+  task: "wait"
+  description: "wait"
+  human_tasks:
+  - ''
 - cmd_id: '3'
   task: "Mount_pallet_21A1122_P2"
   description: "Rimonta il pallet in postazione 2"
+  human_tasks:
+  - ''
+- cmd_id: '8'
+  task: "GoHome"
+  description: "robot go home"
   human_tasks:
   - ''
 - cmd_id: '4'

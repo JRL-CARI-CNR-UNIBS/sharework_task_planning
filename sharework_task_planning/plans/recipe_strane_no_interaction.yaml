@@ -1,0 +1,47 @@
+human_plan:
+- cmd_id: '1000'
+  task: "Unmount_pallet_21A1121_P2"
+  description: "Smonta il pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '1001'
+  task: "Extract_pezzo_pallet_21A1121_P2"
+  description: "Estrai il pezzo dal pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '1002'
+  task: "Insert_pezzo_pallet_21A1121_P2"
+  description: "Inserisci il nuovo pezzo nel pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '1003'
+  task: "Mount_pallet_21A1121_P2"
+  description: "Rimonta il pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '1004'
+  task: "Move_pallet_21A1121_P2_to_P3"
+  description: "Sposta il pallet da postazione 2 a 3"
+  human_tasks:
+  - ''
+- cmd_id: '1005'
+  task: "end"
+  description: "end"
+  human_tasks:
+  - ''
+robot_plan:
+- cmd_id: '0'
+  task: "Unmount_pallet_21A1122_P1"
+  description: "Smonta il pallet in postazione 1"
+  human_tasks:
+  - ''
+- cmd_id: '1'
+  task: "Mount_pallet_21A1122_P1"
+  description: "Rimonta il pallet in postazione 2"
+  human_tasks:
+  - ''
+- cmd_id: '2'
+  task: end
+  description: "end"
+  human_tasks:
+  - ''
