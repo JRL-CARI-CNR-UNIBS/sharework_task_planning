@@ -68,8 +68,6 @@ bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state, std::v
   }
 }
 
-
-
 void addTaskToRightAgentQueue(std::queue<std::string> &human_task_queue, std::queue<std::string> &robot_task_queue, const std::string task_name)
 {
   if(human_task_queue.size()>robot_task_queue.size())
@@ -116,11 +114,10 @@ int main(int argc, char **argv)
   std::map<std::string,std::shared_ptr<ros_helper::SubscriptionNotifier<task_planner_interface_msgs::MotionTaskExecutionFeedback>>> task_feedback;
   std::map<std::string,agent_status> agents_status;
 
-  mqtt_scene_integration::Fixture received_msg;
   std::map<int, mqtt_scene_integration::Fixture> received_msgs;
 
   /* Load params */
-  std::string fixture_base_topic_name;//"/JFMX/L1/sharework/station/p"
+  std::string fixture_base_topic_name;
   if (!pnh.getParam("fixture_base_topic_name",fixture_base_topic_name))
   {
     ROS_ERROR("fixture_base_topic_name not defined");
@@ -169,10 +166,6 @@ int main(int argc, char **argv)
   resetAgentsStatus(agents_status);
 
   std::vector<std::string> task_to_pub;
-  std::string agent_executor;
-
-  std::queue<fixture_request> fixture_queue;
-  std::queue<std::shared_ptr<ros_helper::SubscriptionNotifier<mqtt_scene_integration::Fixture>>> task_queue;
 
   std::vector<bool> station_flag_changed ={false,false,false,false};
 
@@ -198,6 +191,7 @@ int main(int argc, char **argv)
       }
     }
 
+    /* Check if agent are free and send task request*/
     if(agents_status[HUMAN] == Free)
     {
       if(human_task_queue.size()>0)
@@ -239,7 +233,7 @@ int main(int argc, char **argv)
       continue;
     }
 
-    std::vector<std::string> task_to_pub;
+    task_to_pub.clear();
     if(station_flag_changed.at(STATION_P0))
     {
       if(manageStationP0(fixture_vec_state,task_to_pub))
