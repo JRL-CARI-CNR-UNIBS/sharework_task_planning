@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(sharework_demo_tree)
+project(sharework_demo)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -14,7 +14,6 @@ find_package(catkin REQUIRED COMPONENTS
   subscription_notifier
   behaviortree_cpp_v3
   mqtt_scene_integration
-
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,10 +106,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS include
- LIBRARIES ${PROJECT_NAME}
- CATKIN_DEPENDS roscpp rospy std_msgs subscription_notifier behaviortree_cpp_v3 mqtt_scene_integration
- DEPENDS
+  LIBRARIES
+  CATKIN_DEPENDS roscpp rospy std_msgs subscription_notifier behaviortree_cpp_v3 mqtt_scene_integration
+  DEPENDS
 )
 
 ###########
@@ -120,16 +118,15 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+# include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-add_library(${PROJECT_NAME}
-  src/${PROJECT_NAME}/fixture_check.cpp
-)
-add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/sharework_demo.cpp
+# )
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -138,20 +135,11 @@ target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(run_tree_node src/run_tree.cpp)
-add_dependencies(run_tree_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(run_tree_node
-  ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
-)
-
 add_executable(demo_node src/demo.cpp)
 add_dependencies(demo_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(demo_node
   ${catkin_LIBRARIES}
-  ${PROJECT_NAME}
 )
-
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -214,7 +202,7 @@ target_link_libraries(demo_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_sharework_demo_tree.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_sharework_demo.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
