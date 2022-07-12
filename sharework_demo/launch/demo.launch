@@ -11,6 +11,7 @@
   <arg name="robot_feedback_to_planner" default="$(arg prefix)/motion/feedback" />
   <arg name="human_feedback_to_planner" default="$(arg prefix)/human/feedback" />
 
+  <arg name="sampling_time" default="1" />
 
   <node name="demo_node" pkg="sharework_demo" type="demo_node" output="screen" >
     <param name="robot_request_from_planner" value="$(arg robot_request_from_planner)" />
@@ -18,6 +19,7 @@
     <param name="robot_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
     <param name="human_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
     <param name="fixture_base_topic_name" value="$(arg fixture_base_topic_name)" />
+    <param name="sampling_time" value="$(arg sampling_time)" />
 
   </node>
 
