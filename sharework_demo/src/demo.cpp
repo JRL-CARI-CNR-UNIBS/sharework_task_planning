@@ -348,6 +348,9 @@ int main(int argc, char **argv)
     }
     for(int k_fixture=1; k_fixture<=2;k_fixture++)
     {
+      if(not station_flag_changed.at(k_fixture))
+        continue;
+
       switch(fixture_vec_state.at(k_fixture))
       {
         case ToUnload:
@@ -363,6 +366,7 @@ int main(int argc, char **argv)
           {
             station_flag_changed.at(k_fixture) = false;
             agents_task_queue[Human].push("move_P"+std::to_string(k_fixture)+"_to_P3");
+            ROS_INFO_STREAM("Task "<<"move_P"+std::to_string(k_fixture)+"_to_P3" <<" added in human task queue");
           }
           break;
       }
