@@ -11,8 +11,7 @@
 #define STATION_P1 1
 #define STATION_P2 2
 #define STATION_P3 3
-//#define HUMAN "human"
-//#define ROBOT "robot"
+
 
 enum fixture_state {Empty, ToLoad, ToUnload, ToWork};
 enum agent_status {Busy=1,Free=0};
