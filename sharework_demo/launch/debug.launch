@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="fixture_base_topic_name" default="/JFMX/L1/sharework/station/p" />
+
+  <arg name="prefix" default="/sharework/test/stiima"/>
+
+  <arg name="robot_request_from_planner" default="$(arg prefix)/motion" />
+  <arg name="human_request_from_planner" default="$(arg prefix)/human" />
+  <arg name="robot_feedback_to_planner" default="$(arg prefix)/motion/feedback" />
+  <arg name="human_feedback_to_planner" default="$(arg prefix)/human/feedback" />
+
+  <arg name="sampling_time" default="1" />
+
+  <node name="debug_node" pkg="sharework_demo" type="debug.py" output="screen" >
+    <param name="robot_feedback_to_planner" value="$(arg robot_feedback_to_planner)" />
+    <param name="human_feedback_to_planner" value="$(arg human_feedback_to_planner)" />
+    <param name="fixture_base_topic_name" value="$(arg fixture_base_topic_name)" />
+  </node>
+
+
+</launch>
