@@ -319,7 +319,7 @@ int main(int argc, char **argv)
       if(fixture_vec_sub.at(k_fixture)->isANewDataAvailable())
       {
         ROS_INFO_STREAM("New fixture trigger arrived at fixture :" << k_fixture);
-        received_msgs[k_fixture] = fixture_vec_sub.at(k_fixture)->getData();  // Deve essere vet
+        received_msgs[k_fixture] = fixture_vec_sub.at(k_fixture)->getData();
         fixture_vec_state.at(k_fixture) = getFixtureState(received_msgs[k_fixture].state);
         if(fixture_vec_state.at(k_fixture)!=Empty)
         {
