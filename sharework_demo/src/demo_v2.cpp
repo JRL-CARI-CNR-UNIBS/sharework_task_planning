@@ -3,6 +3,7 @@
 #include <mqtt_scene_integration/Fixture.h>
 #include <task_planner_interface_msgs/MotionTaskExecutionRequestArray.h>
 #include <task_planner_interface_msgs/MotionTaskExecutionFeedback.h>
+#include<tuple>
 
 #include <queue>
 
@@ -13,17 +14,13 @@
 #define STATION_P3 3
 
 
-enum fixture_state {Empty, ToLoad, ToUnload, ToWork, InCharge};
+enum fixture_state {Empty, ToLoad, ToUnload, ToWork};
 enum agent_status {Busy=1,Free=0};
 struct fixture_request{
   mqtt_scene_integration::Fixture fixture_msg;
   int n_station;
 };
 enum agent{Human,Robot};
-struct task_with_utility_incharge{
-  std::string task_name;
-  bool utility_flag_incharge;
-};
 
 /**
  * Publish a task
@@ -42,7 +39,6 @@ void publishTask(const ros::Publisher &pub,
     ROS_INFO_STREAM("Task published: "<< task_to_publish);
     pub.publish(task_to_publish);
     ros::spinOnce();
-
 }
 /**
   Get Fixture state from string
@@ -61,8 +57,6 @@ fixture_state getFixtureState(const std::string &fixture_state)
     return ToUnload;
   else if(fixture_state.compare("ToWork")==0)
     return ToWork;
-  else if(fixture_state.compare("InCharge")==0)
-    return InCharge;
   else
     throw std::invalid_argument( "Fixture state not known" );
 }
@@ -73,43 +67,41 @@ fixture_state getFixtureState(const std::string &fixture_state)
  * @param task_to_pub a vector in which will be put the task to publish
  * @return false if all fixture are busy true otherwise
  */
-bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::map<agent,std::queue<std::string>> &agents_task_queue)
+bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state, std::vector<std::string> &agents_task)
 {
   if(fixture_vec_state.at(STATION_P1) == Empty && fixture_vec_state.at(STATION_P2) == Empty)
   {
-    agents_task_queue[Human].push("move_PO_tO_P2");
+    agents_task.push_back("move_PO_tO_P2");
     ROS_INFO_STREAM("Task "<<"move_PO_tO_P2" <<" added in human task queue");
-//    task_to_pub = {"move_PO_tO_P2"};
     return true;
   }
   else if(fixture_vec_state.at(STATION_P1) == Empty && fixture_vec_state.at(STATION_P2) != Empty)
   {
-    agents_task_queue[Human].push("move_P0_to_P1");
+    agents_task.push_back("move_P0_to_P1");
     ROS_INFO_STREAM("Task "<< "move_P0_to_P1" <<" added in human task queue");
-//    task_to_pub = {"move_P0_to_P1"};
     return true;
   }
   else if(fixture_vec_state.at(STATION_P1) != Empty && fixture_vec_state.at(STATION_P2) == Empty) /*Da aggiungere una condizione P1 to_work o to_load*/
   {
-    int agent_queue_size;
-    for (auto  it = agents_task_queue.begin(); it != agents_task_queue.end(); it++)
-    {
-      if(it->first == Human)
-      {
-        it->second.push("move_P1_to_P2");
-        it->second.push("move_P0_to_P1");
-      }
+//    int agent_queue_size;
+//    for (auto  it = agents_task_queue.begin(); it != agents_task_queue.end(); it++)
+//    {
+//      if(it->first == Human)
+//      {
+//        it->second.push("move_P1_to_P2");
+//        it->second.push("move_P0_to_P1");
+//      }
 
-      agent_queue_size = it->second.size();
-      for(int k=0;k<agent_queue_size;k++)
-      {
-        if(it->second.front().find("unmount_P1") == std::string::npos && it->second.front().find("mount_P1") == std::string::npos && it->second.front().find("move_P1") == std::string::npos)
-        {
-          it->second.push(it->second.front());
-        }
-        it->second.pop();
-      }
-    }
+//      agent_queue_size = it->second.size();
+//      for(int k=0;k<agent_queue_size;k++)
+//      {
+//        if(it->second.front().find("unmount_P1") == std::string::npos && it->second.front().find("mount_P1") == std::string::npos && it->second.front().find("move_P1") == std::string::npos)
+//        {
+//          it->second.push(it->second.front());
+//        }
+//        it->second.pop();
+//      }
+//    }
     return true;
   }
   else
@@ -124,9 +116,9 @@ bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::ma
  * @param robot_task_queue  robot task queue
  * @param task_name   task to add to one queue
  */
-void addTaskToRightAgentQueue(std::queue<std::string> &human_task_queue, std::queue<std::string> &robot_task_queue, std::map<agent,agent_status> &agents_status,const std::string task_name)
+void addTaskToRightAgentQueue(std::queue<std::string> &human_task_queue, std::queue<std::string> &robot_task_queue, const std::string task_name)
 {
-  if((human_task_queue.size()+agents_status[Human])>(robot_task_queue.size()+agents_status[Robot]))
+  if(human_task_queue.size()>robot_task_queue.size())
   {
     robot_task_queue.push(task_name);
     ROS_INFO_STREAM("Task "<<task_name <<" added in robot task queue");
@@ -137,6 +129,7 @@ void addTaskToRightAgentQueue(std::queue<std::string> &human_task_queue, std::qu
     ROS_INFO_STREAM("Task "<<task_name <<" added in human task queue");
   }
 }
+
 /**
  * @brief resetAgentsStatus Reset all agent status (Free)
  * @param agents_status A Map <agent name - status>
@@ -153,7 +146,7 @@ void resetAgentsStatus(std::map<agent,agent_status> &agents_status)
  * @param agents_status agent status map<agent name - status>
  * @return true if there is at least one free agent, false otherwise
  */
-bool isAnAgentFree(std::map<agent,agent_status> &agents_status)
+bool isAnAgentFree(const std::map<agent,agent_status> &agents_status)
 {
   bool an_agent_free = true;
   for (auto it = agents_status.begin(); it != agents_status.end(); it++)
@@ -162,6 +155,32 @@ bool isAnAgentFree(std::map<agent,agent_status> &agents_status)
       an_agent_free = true;
   }
   return an_agent_free;
+}
+bool getFreeAgentsV2(const std::map<agent,agent_status> &agents_status, std::vector<agent> &free_agent_list)
+{
+  bool an_agent_free = true;
+  free_agent_list.clear();
+  for (auto it = agents_status.begin(); it != agents_status.end(); it++)
+  {
+    if(it->second == Free)
+    {
+      an_agent_free = true;
+      free_agent_list.push_back(it->first);
+    }
+  }
+  return an_agent_free;
+}
+std::vector<agent> getFreeAgents(const std::map<agent,agent_status> &agents_status)
+{
+  std::vector<agent> free_agent_list;
+  for (auto it = agents_status.begin(); it != agents_status.end(); it++)
+  {
+    if(it->second == Free)
+    {
+      free_agent_list.push_back(it->first);
+    }
+  }
+  return free_agent_list;
 }
 void printQueue(std::map<agent, std::queue<std::string>> agents_task_queue)
 {
@@ -201,7 +220,6 @@ std::string getAgentName(const agent &agent_name)
     return "Robot";
   }
 }
-
 
 int main(int argc, char **argv)
 {
@@ -277,12 +295,14 @@ int main(int argc, char **argv)
   std::vector<bool> station_flag_changed ={false,false,false,false};
 
   std::map<agent, std::queue<std::string>> agents_task_queue;
-  std::map<agent, std::queue<std::string>> agents_task_queue;
-
   std::map<agent, ros::Publisher> agents_task_request_pub;
   agents_task_request_pub[Human] =  nh.advertise<task_planner_interface_msgs::MotionTaskExecutionRequestArray>(human_task_request_topic, 10);
   agents_task_request_pub[Robot] =  nh.advertise<task_planner_interface_msgs::MotionTaskExecutionRequestArray>(robot_task_request_topic, 10);
 
+  std::queue<fixture_request> fixture_trigger_queue;
+  mqtt_scene_integration::Fixture fixture_trigger;
+
+  std::vector<agent> free_agents;
   /* Main cycle */
   while(ros::ok())
   {
@@ -290,6 +310,25 @@ int main(int argc, char **argv)
     ros::Duration(dt).sleep();
     ROS_INFO_STREAM("Robot status: "<<getAgentStatus(agents_status[Robot]));
     ROS_INFO_STREAM("Human status: "<<getAgentStatus(agents_status[Human]));
+
+    /* Check if new data are availabe and put in list*/
+    for(int k_fixture=0;k_fixture<FIXTURES_NUMBER; k_fixture++)
+    {
+      if(fixture_vec_sub.at(k_fixture)->isANewDataAvailable())
+      {
+        ROS_INFO_STREAM("New fixture trigger arrived at fixture :" << k_fixture);
+        fixture_trigger = fixture_vec_sub.at(k_fixture)->getData();
+
+        if(fixture_vec_state.at(k_fixture)!=Empty)      // If is not empty put the fixture trigger in the list otherwise reset fixture state
+        {
+          fixture_trigger_queue.push({fixture_trigger,k_fixture});
+        }
+        else
+        {
+          fixture_vec_state.at(k_fixture) = Empty;
+        }
+      }
+    }
 
     /* Check task Feedback and Reset agent status */
     for (auto  it = task_feedback.begin(); it != task_feedback.end(); it++)
@@ -302,95 +341,66 @@ int main(int argc, char **argv)
       }
     }
 
-
+    free_agents = getFreeAgents(agents_status);
 
     /* Check if agent are free and send task request*/
-    for (auto  it = agents_task_queue.begin(); it != agents_task_queue.end(); it++)
+    for (agent free_agent : free_agents)
     {
-      if(agents_status[it->first] == Free)
+      if(fixture_trigger_queue.size()>0)
       {
-        if(it->second.size()>0)
+        switch(fixture_trigger_queue.front().n_station)
         {
-          publishTask(agents_task_request_pub[it->first],it->second.front());
-          agents_status[it->first] = Busy;
-          ROS_INFO_STREAM("Task "<<it->second.front() <<" request to agent: "<< getAgentName(it->first));
-          it->second.pop();
-          if(it->second.front().find("move") == std::string::npos)
+          case STATION_P0:
           {
-
-          }
-        }
-      }
-    }
-
-    /* Check if event occur iterating stations */
-    bool event = false;
-    received_msgs.clear();
-    for(unsigned int k_fixture=0;k_fixture<FIXTURES_NUMBER; k_fixture++)
-    {
-      if(fixture_vec_sub.at(k_fixture)->isANewDataAvailable())
-      {
-        ROS_INFO_STREAM("New fixture trigger arrived at fixture :" << k_fixture);
-        received_msgs[k_fixture] = fixture_vec_sub.at(k_fixture)->getData();
-        fixture_vec_state.at(k_fixture) = getFixtureState(received_msgs[k_fixture].state);
-        if(fixture_vec_state.at(k_fixture)!=Empty)
-        {
-          station_flag_changed.at(k_fixture)=true;
-          event = true;
-        }
-        if(k_fixture == STATION_P3)
-        {
-          if(fixture_vec_state.at(k_fixture)==Empty)
-          {
-            station_flag_changed.at(k_fixture)=true;
-            event = true;
-          }
-        }
-      }
-    }
-    if(not event)
-    {
-      continue;
-    }
-
-    task_to_pub.clear();
-    if(station_flag_changed.at(STATION_P0))
-    {
-      if(manageStationP0(fixture_vec_state,agents_task_queue))
-      {
-        station_flag_changed.at(STATION_P0)=false;
-      }
-    }
-    for(int k_fixture=1; k_fixture<=2;k_fixture++)
-    {
-      if(not station_flag_changed.at(k_fixture))
-        continue;
-
-      switch(fixture_vec_state.at(k_fixture))
-      {
-        case ToUnload:
-          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status ,"unmount_P"+std::to_string(k_fixture)+"_"+received_msgs[k_fixture].content);
-          station_flag_changed.at(k_fixture) = false;
-          break;
-        case ToLoad:
-          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status, "mount_P"+std::to_string(k_fixture)+"_"+received_msgs[k_fixture].content);
-          station_flag_changed.at(k_fixture) = false;
-          break;
-        case ToWork:
-          if(fixture_vec_state.at(STATION_P3) == Empty)
-          {
-            if(k_fixture != STATION_P1 || fixture_vec_state.at(STATION_P2)==Empty)    // To not reset if p1 finished and p2 not yet finished
+            if(free_agent == Human)
             {
-              station_flag_changed.at(k_fixture) = false;
-              agents_task_queue[Human].push("move_P"+std::to_string(k_fixture)+"_to_P3");
-              ROS_INFO_STREAM("Task "<<"move_P"+std::to_string(k_fixture)+"_to_P3" <<" added in human task queue");
+              std::vector<std::string> task_to_perform;
+              if(manageStationP0(fixture_vec_state,task_to_perform))
+              {
+                publishTask(agents_task_request_pub[Human],task_to_perform[0]);
+                agents_status[Human]=Busy;
 
+              }
+              else
+              {
+                int a;
+                  //
+              }//            getFixtureState(fixture_trigger_queue.front().fixture_msg.state);
             }
+            break;
           }
-          break;
+          case STATION_P1:
+          case STATION_P2:
+          {
+            switch(getFixtureState(fixture_trigger_queue.front().fixture_msg.state))
+            {
+              case ToUnload:
+                publishTask(agents_task_request_pub[free_agent], "unmount_P"+std::to_string(fixture_trigger_queue.front().n_station)+"_"+fixture_trigger_queue.front().fixture_msg.content);
+                fixture_vec_state.at(fixture_trigger_queue.front().n_station) = getFixtureState(fixture_trigger_queue.front().fixture_msg.state);
+                agents_status[free_agent] = Busy;
+                fixture_trigger_queue.pop();
+                break;
+              case ToLoad:
+                publishTask(agents_task_request_pub[free_agent], "mount_P"+std::to_string(fixture_trigger_queue.front().n_station)+"_"+fixture_trigger_queue.front().fixture_msg.content);
+                fixture_vec_state.at(fixture_trigger_queue.front().n_station) = getFixtureState(fixture_trigger_queue.front().fixture_msg.state);
+                agents_status[free_agent] = Busy;
+                fixture_trigger_queue.pop();
+                break;
+              case ToWork:
+                if(fixture_vec_state.at(STATION_P3) == Empty && free_agent == Human)
+                {
+                  publishTask(agents_task_request_pub[Human], "move_P"+std::to_string(fixture_trigger_queue.front().n_station)+"_to_P3");
+                  fixture_vec_state.at(fixture_trigger_queue.front().n_station) = getFixtureState(fixture_trigger_queue.front().fixture_msg.state);
+                  agents_status[Human] = Busy;
+                  fixture_trigger_queue.pop();
+                }
+                break;
+            }
+            break;
+          }
+        }
+
       }
     }
-    printQueue(agents_task_queue);
   }
-
 }

@@ -140,6 +140,11 @@ add_dependencies(demo_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED
 target_link_libraries(demo_node
   ${catkin_LIBRARIES}
 )
+add_executable(demo_node_v2 src/demo_v2.cpp)
+add_dependencies(demo_node_v2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(demo_node_v2
+  ${catkin_LIBRARIES}
+)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
