@@ -12,7 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   subscription_notifier
-  behaviortree_cpp_v3
   mqtt_scene_integration
 )
 
@@ -107,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   LIBRARIES
-  CATKIN_DEPENDS roscpp rospy std_msgs subscription_notifier behaviortree_cpp_v3 mqtt_scene_integration
+  CATKIN_DEPENDS roscpp rospy std_msgs subscription_notifier mqtt_scene_integration
   DEPENDS
 )
 
