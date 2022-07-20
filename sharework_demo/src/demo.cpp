@@ -3,6 +3,7 @@
 #include <mqtt_scene_integration/Fixture.h>
 #include <task_planner_interface_msgs/MotionTaskExecutionRequestArray.h>
 #include <task_planner_interface_msgs/MotionTaskExecutionFeedback.h>
+#include <regex>
 
 #include <queue>
 
@@ -22,6 +23,7 @@ struct fixture_request{
 enum agent{Human,Robot};
 struct task_with_utility_incharge{
   std::string task_name;
+  int station;
   bool utility_flag_incharge;
 };
 
@@ -73,18 +75,18 @@ fixture_state getFixtureState(const std::string &fixture_state)
  * @param task_to_pub a vector in which will be put the task to publish
  * @return false if all fixture are busy true otherwise
  */
-bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::map<agent,std::queue<std::string>> &agents_task_queue)
+bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::map<agent,std::queue<task_with_utility_incharge>> &agents_task_queue)
 {
   if(fixture_vec_state.at(STATION_P1) == Empty && fixture_vec_state.at(STATION_P2) == Empty)
   {
-    agents_task_queue[Human].push("move_PO_tO_P2");
+    agents_task_queue[Human].push({"move_PO_tO_P2",STATION_P2,true});
     ROS_INFO_STREAM("Task "<<"move_PO_tO_P2" <<" added in human task queue");
 //    task_to_pub = {"move_PO_tO_P2"};
     return true;
   }
   else if(fixture_vec_state.at(STATION_P1) == Empty && fixture_vec_state.at(STATION_P2) != Empty)
   {
-    agents_task_queue[Human].push("move_P0_to_P1");
+    agents_task_queue[Human].push({"move_P0_to_P1",STATION_P1,true});
     ROS_INFO_STREAM("Task "<< "move_P0_to_P1" <<" added in human task queue");
 //    task_to_pub = {"move_P0_to_P1"};
     return true;
@@ -96,14 +98,14 @@ bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::ma
     {
       if(it->first == Human)
       {
-        it->second.push("move_P1_to_P2");
-        it->second.push("move_P0_to_P1");
+        it->second.push({"move_P1_to_P2",STATION_P2,true});
+        it->second.push({"move_P0_to_P1",STATION_P1,true});
       }
 
       agent_queue_size = it->second.size();
       for(int k=0;k<agent_queue_size;k++)
       {
-        if(it->second.front().find("unmount_P1") == std::string::npos && it->second.front().find("mount_P1") == std::string::npos && it->second.front().find("move_P1") == std::string::npos)
+        if(it->second.front().task_name.find("unmount-p1") == std::string::npos && it->second.front().task_name.find("mount-p1") == std::string::npos && it->second.front().task_name.find("move_P1") == std::string::npos)
         {
           it->second.push(it->second.front());
         }
@@ -124,17 +126,19 @@ bool manageStationP0(const std::vector<fixture_state> &fixture_vec_state,std::ma
  * @param robot_task_queue  robot task queue
  * @param task_name   task to add to one queue
  */
-void addTaskToRightAgentQueue(std::queue<std::string> &human_task_queue, std::queue<std::string> &robot_task_queue, std::map<agent,agent_status> &agents_status,const std::string task_name)
+void addTaskToRightAgentQueue(std::queue<task_with_utility_incharge> &human_task_queue, std::queue<task_with_utility_incharge> &robot_task_queue, std::map<agent,agent_status> &agents_status,task_with_utility_incharge task_name)
 {
   if((human_task_queue.size()+agents_status[Human])>(robot_task_queue.size()+agents_status[Robot]))
   {
+    task_name.task_name += "-robot";
     robot_task_queue.push(task_name);
-    ROS_INFO_STREAM("Task "<<task_name <<" added in robot task queue");
+    ROS_INFO_STREAM("Task "<<task_name.task_name <<" added in robot task queue");
   }
   else
   {
+    task_name.task_name += "-human";
     human_task_queue.push(task_name);
-    ROS_INFO_STREAM("Task "<<task_name <<" added in human task queue");
+    ROS_INFO_STREAM("Task "<<task_name.task_name <<" added in human task queue");
   }
 }
 /**
@@ -163,7 +167,7 @@ bool isAnAgentFree(std::map<agent,agent_status> &agents_status)
   }
   return an_agent_free;
 }
-void printQueue(std::map<agent, std::queue<std::string>> agents_task_queue)
+void printQueue(std::map<agent, std::queue<task_with_utility_incharge>> agents_task_queue)
 {
   int agent_queue_size;
   for(auto it = agents_task_queue.begin(); it != agents_task_queue.end(); it++)
@@ -172,7 +176,7 @@ void printQueue(std::map<agent, std::queue<std::string>> agents_task_queue)
     agent_queue_size = it->second.size();
     for(int k=0;k<agent_queue_size;k++)
     {
-      ROS_INFO_STREAM(it->second.front());
+      ROS_INFO_STREAM(it->second.front().task_name);
       it->second.pop();
     }
   }
@@ -276,16 +280,18 @@ int main(int argc, char **argv)
 
   std::vector<bool> station_flag_changed ={false,false,false,false};
 
-  std::map<agent, std::queue<std::string>> agents_task_queue;
-  std::map<agent, std::queue<std::string>> agents_task_queue;
+//  std::map<agent, std::queue<std::string>> agents_task_queue;
+  std::map<agent, std::queue<task_with_utility_incharge>> agents_task_queue;
 
   std::map<agent, ros::Publisher> agents_task_request_pub;
   agents_task_request_pub[Human] =  nh.advertise<task_planner_interface_msgs::MotionTaskExecutionRequestArray>(human_task_request_topic, 10);
   agents_task_request_pub[Robot] =  nh.advertise<task_planner_interface_msgs::MotionTaskExecutionRequestArray>(robot_task_request_topic, 10);
 
+  bool robot_running_station_1 = false;
+
   /* Main cycle */
   while(ros::ok())
-  {
+  {    
     ros::spinOnce();
     ros::Duration(dt).sleep();
     ROS_INFO_STREAM("Robot status: "<<getAgentStatus(agents_status[Robot]));
@@ -299,26 +305,41 @@ int main(int argc, char **argv)
         it->second->getData();
         agents_status[it->first] = Free;
         ROS_INFO_STREAM("Arrivato feedback: "<<it->first);
+
+        if(it->first == Robot)    //all message to robot agent reset robot running station 2
+        {
+          robot_running_station_1 = false;
+        }
       }
     }
 
 
 
-    /* Check if agent are free and send task request*/
+    /* Check if agent are free and SEND task request*/
     for (auto  it = agents_task_queue.begin(); it != agents_task_queue.end(); it++)
     {
       if(agents_status[it->first] == Free)
       {
         if(it->second.size()>0)
         {
-          publishTask(agents_task_request_pub[it->first],it->second.front());
+          publishTask(agents_task_request_pub[it->first],it->second.front().task_name);
           agents_status[it->first] = Busy;
-          ROS_INFO_STREAM("Task "<<it->second.front() <<" request to agent: "<< getAgentName(it->first));
-          it->second.pop();
-          if(it->second.front().find("move") == std::string::npos)
-          {
+          ROS_INFO_STREAM("Task "<<it->second.front().task_name <<" request to agent: "<< getAgentName(it->first));
 
+          if(it->second.front().utility_flag_incharge)
+          {
+            ROS_ERROR_STREAM("Anticipating the state of station " << it->second.front().station <<" put in charge");
+            fixture_vec_state.at(it->second.front().station) = InCharge;
           }
+
+          /* Robot running station 2 */
+          if(it->first == Robot && it->second.front().station == STATION_P1)
+          {
+            robot_running_station_1 = true;
+          }
+
+
+          it->second.pop();
         }
       }
     }
@@ -356,7 +377,7 @@ int main(int argc, char **argv)
     task_to_pub.clear();
     if(station_flag_changed.at(STATION_P0))
     {
-      if(manageStationP0(fixture_vec_state,agents_task_queue))
+      if(manageStationP0(fixture_vec_state,agents_task_queue))  //robot_running_station_1
       {
         station_flag_changed.at(STATION_P0)=false;
       }
@@ -369,11 +390,11 @@ int main(int argc, char **argv)
       switch(fixture_vec_state.at(k_fixture))
       {
         case ToUnload:
-          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status ,"unmount_P"+std::to_string(k_fixture)+"_"+received_msgs[k_fixture].content);
+          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status ,{"unmount-p"+std::to_string(k_fixture)+"-"+received_msgs[k_fixture].content,k_fixture,false});
           station_flag_changed.at(k_fixture) = false;
           break;
         case ToLoad:
-          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status, "mount_P"+std::to_string(k_fixture)+"_"+received_msgs[k_fixture].content);
+          addTaskToRightAgentQueue(agents_task_queue[Human], agents_task_queue[Robot], agents_status, {"mount-p"+std::to_string(k_fixture)+"-"+received_msgs[k_fixture].content,k_fixture,false});
           station_flag_changed.at(k_fixture) = false;
           break;
         case ToWork:
@@ -382,9 +403,8 @@ int main(int argc, char **argv)
             if(k_fixture != STATION_P1 || fixture_vec_state.at(STATION_P2)==Empty)    // To not reset if p1 finished and p2 not yet finished
             {
               station_flag_changed.at(k_fixture) = false;
-              agents_task_queue[Human].push("move_P"+std::to_string(k_fixture)+"_to_P3");
+              agents_task_queue[Human].push({"move_P"+std::to_string(k_fixture)+"_to_P3",STATION_P3,true});
               ROS_INFO_STREAM("Task "<<"move_P"+std::to_string(k_fixture)+"_to_P3" <<" added in human task queue");
-
             }
           }
           break;
