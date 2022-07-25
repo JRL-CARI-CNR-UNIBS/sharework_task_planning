@@ -122,7 +122,9 @@ def main():
             "11":("Robot Mounted P1",partial(menu_manager.loaded,ROBOT,1)),
             "12":("Human Mounted P2",partial(menu_manager.loaded,HUMAN,2)),
             "13":("Robot Mounted P2",partial(menu_manager.loaded,ROBOT,2)),
-            "14":("Free P3",menu_manager.freeP3)                       
+            "14":("Free P3",menu_manager.freeP3),
+            "15" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
+            "16" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT))                      
         }
 #    menu_manager.newPallet() 
     another_command = True

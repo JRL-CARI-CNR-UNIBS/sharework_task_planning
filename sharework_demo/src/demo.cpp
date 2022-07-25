@@ -291,7 +291,7 @@ int main(int argc, char **argv)
 
   /* Main cycle */
   while(ros::ok())
-  {    
+  {
     ros::spinOnce();
     ros::Duration(dt).sleep();
     ROS_INFO_STREAM("Robot status: "<<getAgentStatus(agents_status[Robot]));
