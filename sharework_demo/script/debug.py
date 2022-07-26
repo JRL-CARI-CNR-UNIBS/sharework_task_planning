@@ -25,12 +25,12 @@ ROBOT = "robot"
 def sendAgentFeedback(agent_name):
     pub = rospy.Publisher("Non mi ricordo", MotionTaskExecutionFeedback, queue_size=10)
     pub.publish(MotionTaskExecutionFeedback(1,1))
-        
+
 def moveP0ToP2():
     print("Fai un pò di cose")
 def newPallet():
     print("New pallet")
-    
+
 def my_quit_fn():
    raise SystemExit
 
@@ -38,45 +38,45 @@ def invalid():
    print("INVALID CHOICE!")
 
 class MenuOptionManager:
-    
+
     def __init__(self,human_feedback_topic_name,robot_feedback_topic_name,fixture_base_topic_name):
         self.human_feedback_pub_ = rospy.Publisher(human_feedback_topic_name, MotionTaskExecutionFeedback, queue_size=10)
         self.robot_feedback_pub_ = rospy.Publisher(robot_feedback_topic_name, MotionTaskExecutionFeedback, queue_size=10)
-        
+
         self.n_fixtures = 4
-        
+
         self.fixtures_pub_=dict()
         for fixture in range(0,self.n_fixtures):
-            self.fixtures_pub_[fixture] = rospy.Publisher(fixture_base_topic_name + str(fixture), Fixture, queue_size=10)               
+            self.fixtures_pub_[fixture] = rospy.Publisher(fixture_base_topic_name + str(fixture), Fixture, queue_size=10)
 
-    def newPallet(self):
-        self.fixtures_pub_[0].publish(Fixture(TO_UNLOAD, PEZZO))
-    
+    def newPallet(self,pezzo):
+        self.fixtures_pub_[0].publish(Fixture(TO_UNLOAD, pezzo))
+
     def movedP0ToP2(self):
         self.fixtures_pub_[0].publish(Fixture(EMPTY, PEZZO))
         self.fixtures_pub_[2].publish(Fixture(TO_UNLOAD, PEZZO))
         self.sendAgentFeedback(HUMAN)
-        
+
     def movedP0ToP1(self):
         self.fixtures_pub_[0].publish(Fixture(EMPTY, PEZZO))
         self.fixtures_pub_[1].publish(Fixture(TO_UNLOAD, PEZZO))
         self.sendAgentFeedback(HUMAN)
-            
+
     def movedToP3(self,starting_station):
         self.fixtures_pub_[starting_station].publish(Fixture(EMPTY, PEZZO))
         self.fixtures_pub_[3].publish(Fixture(TO_WORK, PEZZO))
         self.sendAgentFeedback(HUMAN)
-    
+
     def unloaded(self,agent,station):
         self.sendAgentFeedback(agent)
-        self.fixtures_pub_[station].publish(Fixture(TO_LOAD, PEZZO)) 
+        self.fixtures_pub_[station].publish(Fixture(TO_LOAD, PEZZO))
     def loaded(self,agent,station):
         self.sendAgentFeedback(agent)
         self.fixtures_pub_[station].publish(Fixture(TO_WORK, PEZZO))
-         
+
     def freeP3(self):
         self.fixtures_pub_[3].publish(Fixture(EMPTY, PEZZO))
-        
+
     def sendAgentFeedback(self,agent):
         if agent == HUMAN:
             self.human_feedback_pub_.publish(MotionTaskExecutionFeedback(0,0))
@@ -84,7 +84,7 @@ class MenuOptionManager:
             self.robot_feedback_pub_.publish(MotionTaskExecutionFeedback(0,0))
 def printMenu(menu):
     for key in menu.keys():
-        print(key+":" + menu[key][0])    
+        print(key+":" + menu[key][0])
 def main():
     rospy.init_node('debug', anonymous=True)
     rospy.loginfo(GREEN + "Debugging node started" + END)
@@ -104,10 +104,10 @@ def main():
     except KeyError:
         rospy.logerr(RED + PARAM_NOT_DEFINED_ERROR.format("fixture_base_topic_name") + END)
         return 0
-    
-    menu_manager = MenuOptionManager(human_feedback_to_planner,robot_feedback_to_planner,fixture_base_topic_name)    
+
+    menu_manager = MenuOptionManager(human_feedback_to_planner,robot_feedback_to_planner,fixture_base_topic_name)
     rospy.sleep(1)
-    
+
     # menu = {"0":("Exit",my_quit_fn),
     #         "1":("New Pallet",menu_manager.newPallet),
     #         "2":("Moved P0 to P1",menu_manager.movedP0ToP1),
@@ -124,22 +124,24 @@ def main():
     #         "13":("Robot Mounted P2",partial(menu_manager.loaded,ROBOT,2)),
     #         "14":("Free P3",menu_manager.freeP3),
     #         "15" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
-    #         "16" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT))                      
-    #     }    
+    #         "16" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT))
+    #     }
     menu = {"0":("Exit",my_quit_fn),
-            "1":("New Pallet",menu_manager.newPallet),
-            "2" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
-            "3" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT)),
-            "4":("Free P3",menu_manager.freeP3)                      
+            "1":("New Pallet A1610",partial(menu_manager.newPallet,"a1610")),
+            "2":("New Pallet A1652",partial(menu_manager.newPallet,"a1652")),
+            "3":("New Pallet A1653",partial(menu_manager.newPallet,"a1653")),
+            "4" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
+            "5" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT)),
+            "6":("Free P3",menu_manager.freeP3)
         }
-#    menu_manager.newPallet() 
+#    menu_manager.newPallet()
     another_command = True
 
     for key in menu.keys():
         print(key+":" + menu[key][0])
-    
+
     while True and not rospy.is_shutdown():                                 # until user want another position
-        
+
         choise = input("Command: ")
         menu.get(choise,[None,invalid])[1]()
 

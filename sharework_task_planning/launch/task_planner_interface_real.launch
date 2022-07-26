@@ -3,6 +3,7 @@
 <launch>
 
   <arg name="group_name_robot" default="manipulator"/>
+  <arg name="group_name_human" default="human"/>
 
   <arg name="hrc" default="false"/>
 
@@ -42,6 +43,7 @@
   <include if="$(arg hrc)" file="$(find sharework_task_planning)/launch/human_real_executor.launch" >
       <arg name="agent_node" value="human_task_executor" />
       <arg name="topic_request_from_planner" value="$(arg human_request_from_planner)"/>
+      <arg name="group_name" value="$(arg group_name_human)"/>
   </include>
 
 </launch>
