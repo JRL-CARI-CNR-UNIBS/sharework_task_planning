@@ -108,23 +108,29 @@ def main():
     menu_manager = MenuOptionManager(human_feedback_to_planner,robot_feedback_to_planner,fixture_base_topic_name)    
     rospy.sleep(1)
     
+    # menu = {"0":("Exit",my_quit_fn),
+    #         "1":("New Pallet",menu_manager.newPallet),
+    #         "2":("Moved P0 to P1",menu_manager.movedP0ToP1),
+    #         "3":("Moved P0 to P2",menu_manager.movedP0ToP2),
+    #         "4":("Moved P1 to P3",partial(menu_manager.movedToP3,1)),
+    #         "5":("Moved P2 to P3",partial(menu_manager.movedToP3,2)),
+    #         "6":("Human Unmounted P1",partial(menu_manager.unloaded,HUMAN,1)),
+    #         "7":("Robot Unmounted P1",partial(menu_manager.unloaded,ROBOT,1)),
+    #         "8":("Human Unmounted P2",partial(menu_manager.unloaded,HUMAN,2)),
+    #         "9":("Robot Unmounted P2",partial(menu_manager.unloaded,ROBOT,2)),
+    #         "10":("Human Mounted P1",partial(menu_manager.loaded,HUMAN,1)),
+    #         "11":("Robot Mounted P1",partial(menu_manager.loaded,ROBOT,1)),
+    #         "12":("Human Mounted P2",partial(menu_manager.loaded,HUMAN,2)),
+    #         "13":("Robot Mounted P2",partial(menu_manager.loaded,ROBOT,2)),
+    #         "14":("Free P3",menu_manager.freeP3),
+    #         "15" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
+    #         "16" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT))                      
+    #     }    
     menu = {"0":("Exit",my_quit_fn),
             "1":("New Pallet",menu_manager.newPallet),
-            "2":("Moved P0 to P1",menu_manager.movedP0ToP1),
-            "3":("Moved P0 to P2",menu_manager.movedP0ToP2),
-            "4":("Moved P1 to P3",partial(menu_manager.movedToP3,1)),
-            "5":("Moved P2 to P3",partial(menu_manager.movedToP3,2)),
-            "6":("Human Unmounted P1",partial(menu_manager.unloaded,HUMAN,1)),
-            "7":("Robot Unmounted P1",partial(menu_manager.unloaded,ROBOT,1)),
-            "8":("Human Unmounted P2",partial(menu_manager.unloaded,HUMAN,2)),
-            "9":("Robot Unmounted P2",partial(menu_manager.unloaded,ROBOT,2)),
-            "10":("Human Mounted P1",partial(menu_manager.loaded,HUMAN,1)),
-            "11":("Robot Mounted P1",partial(menu_manager.loaded,ROBOT,1)),
-            "12":("Human Mounted P2",partial(menu_manager.loaded,HUMAN,2)),
-            "13":("Robot Mounted P2",partial(menu_manager.loaded,ROBOT,2)),
-            "14":("Free P3",menu_manager.freeP3),
-            "15" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
-            "16" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT))                      
+            "2" :("Human Feedback",partial(menu_manager.sendAgentFeedback,HUMAN)),
+            "3" :("Robot Feedback",partial(menu_manager.sendAgentFeedback,ROBOT)),
+            "4":("Free P3",menu_manager.freeP3)                      
         }
 #    menu_manager.newPallet() 
     another_command = True
