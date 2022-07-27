@@ -33,7 +33,7 @@ class Station:
     
 def main():
     rospy.init_node('check_new_piece', anonymous=True)
-    rospy.loginfo(GREEN + "Check new piece" + END)
+    rospy.loginfo(GREEN + "Check new piece service on" + END)
     
     try:
         trigger_topic_name=rospy.get_param("trigger_topic_name")
