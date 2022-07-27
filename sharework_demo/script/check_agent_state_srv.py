@@ -10,7 +10,7 @@ END = '\033[0m'
 
 
 PARAM_NOT_DEFINED_ERROR = "Parameter: {} not defined"
-SERVICE_NAME = "check_agent_state_"
+SERVICE_NAME_PARAM_NAME = "check_agent_state_prefix_srv_name"
 REQUEST_TOPIC_NAME ="task_request_{}"
 FEEDBACK_TOPIC_NAME = "task_feedback_{}"
 
@@ -54,10 +54,15 @@ def main():
         except KeyError:
             rospy.logerr(RED + PARAM_NOT_DEFINED_ERROR.format(REQUEST_TOPIC_NAME.format(agent)) + END)
             return 0
+        try:
+            check_agent_state_prefix_srv_name=rospy.get_param(SERVICE_NAME_PARAM_NAME)
+        except KeyError:
+            rospy.logerr(RED + PARAM_NOT_DEFINED_ERROR.format(REQUEST_TOPIC_NAME.format(agent)) + END)
+            return 0
         
         agent_state[agent] = []
         agent_state[agent].append(Agent(agent))
-        agent_state[agent].append(rospy.Service(SERVICE_NAME+agent, Trigger, agent_state[agent][0].checkAgentState))
+        agent_state[agent].append(rospy.Service(check_agent_state_prefix_srv_name+"_"+agent, Trigger, agent_state[agent][0].checkAgentState))
         agent_state[agent].append(rospy.Subscriber(task_request_topic_name.format(agent),MotionTaskExecutionRequestArray, agent_state[agent][0].updateAgentState))
         agent_state[agent].append(rospy.Subscriber(task_feedback_topic_name.format(agent),MotionTaskExecutionFeedback, agent_state[agent][0].resetAgentState))
     
