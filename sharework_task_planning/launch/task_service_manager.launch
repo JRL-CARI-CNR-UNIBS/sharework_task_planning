@@ -4,10 +4,10 @@
   <arg name="hrc" default="false"/>
   <arg name="recipe_name" default="recipe"/>
   <arg name="prefix" default="/sharework/test/stiima"/>
-  <arg name="is_human_real" default="false" />
+  <!-- <arg name="is_human_real" default="false" /> -->
 
   <param name="recipe_name" value="$(arg recipe_name)" />
-  <param name="is_human_real" value="$(arg is_human_real)" />
+  <!-- <param name="is_human_real" value="$(arg is_human_real)" /> -->
 
   <!-- LOAD PARAMETERS ABOUT AGENTS -->
   <rosparam if="$(arg hrc)" command="load" file="$(find sharework_task_planning)/config/multiple_agents.yaml" />

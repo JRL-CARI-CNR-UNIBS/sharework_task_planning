@@ -6,6 +6,8 @@
   <arg name="topic_request_from_planner" default="/sharework/test/stiima/human" />
   <arg name="group_name" default="human"/>
 
+  <param name="is_human_real" value="true" />
+
 <!-- launch-prefix="gdb -ex run meno meno args" -->
   <node name="$(arg agent_node)" pkg="task_planner_interface" type="human_executor_node" output="screen" >
     <param name="topic_request_from_planner" value="$(arg topic_request_from_planner)" />
