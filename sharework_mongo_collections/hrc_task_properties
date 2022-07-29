@@ -1,0 +1,840 @@
+[{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570e9"
+  },
+  "name": "mount-p2-a1652-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "mount_P2_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ea"
+  },
+  "name": "mount-p1-a1652-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "mount_P1_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570eb"
+  },
+  "name": "pickplace-p1-p3-a1653-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p1 to position p3",
+  "target": "A1653",
+  "pick_goal": "p1",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ec"
+  },
+  "name": "pickplace-p1-p3-a1610-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1610 from position p1 to position p3",
+  "target": "A1610",
+  "pick_goal": "p1",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ed"
+  },
+  "name": "unscrew-p2-a1652-robot",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "unscrew_P2_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ee"
+  },
+  "name": "unscrew-p1-a1652-robot",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "unscrew_P1_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ef"
+  },
+  "name": "pickplace-p1-p2-a1653-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p1 to position p2",
+  "target": "A1653",
+  "pick_goal": "p1",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f0"
+  },
+  "name": "mount-p1-a1610-robot",
+  "type": "Assembly",
+  "description": "Mount the pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "mount_P1_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f1"
+  },
+  "name": "unmount-p1-a1652-robot",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "unmount_P1_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f2"
+  },
+  "name": "unmount-p2-a1652-robot",
+  "type": "Disassembly",
+  "description": "Unmount pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "unmount_P2_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f3"
+  },
+  "name": "mount-p2-a1610-robot",
+  "type": "Assembly",
+  "description": "Mount pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "mount_P2_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f4"
+  },
+  "name": "screw-p2-a1652-human",
+  "type": "Screw",
+  "description": "Screw pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "screw_P2_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f5"
+  },
+  "name": "pickplace-p0-p1-a1652-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p0 to position p1",
+  "target": "A1652",
+  "pick_goal": "p0",
+  "place_goal": "p1",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f6"
+  },
+  "name": "screw-p2-a1610-human",
+  "type": "Screw",
+  "description": "Screw pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "screw_P2_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f7"
+  },
+  "name": "unscrew-p2-a1610-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "unscrew_P2_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f8"
+  },
+  "name": "pickplace-p1-p3-a1652-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1652 from position p1 to position p3",
+  "target": "A1652",
+  "pick_goal": "p1",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570f9"
+  },
+  "name": "unscrew-p1-a1610-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "unscrew_P1_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570fa"
+  },
+  "name": "pickplace-p1-p2-a1652-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1652 from position p1 to position p2",
+  "target": "A1652",
+  "pick_goal": "p1",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570fb"
+  },
+  "name": "mount-p1-a1653-robot",
+  "type": "Assembly",
+  "description": "Mount the pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "mount_P1_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570fc"
+  },
+  "name": "unmount-p1-a1653-robot",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "unmount_P1_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570fd"
+  },
+  "name": "screw-p1-a1653-human",
+  "type": "Screw",
+  "description": "Screw pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "screw_P1_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570fe"
+  },
+  "name": "mount-p2-a1653-robot",
+  "type": "Assembly",
+  "description": "Mount pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "mount_P2_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc26570ff"
+  },
+  "name": "unmount-p2-a1653-robot",
+  "type": "Disassembly",
+  "description": "Unmount pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "unmount_P2_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657100"
+  },
+  "name": "unmount-p2-a1610-robot",
+  "type": "Disassembly",
+  "description": "Unmount pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "unmount_P2_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657101"
+  },
+  "name": "screw-p2-a1653-human",
+  "type": "Screw",
+  "description": "Screw pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "screw_P2_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657102"
+  },
+  "name": "pickplace-p2-p3-a1652-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1652 from position p2 to position p3",
+  "target": "A1652",
+  "pick_goal": "p2",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657103"
+  },
+  "name": "unmount-p1-a1610-robot",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "unmount_P1_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657104"
+  },
+  "name": "screw-p1-a1610-human",
+  "type": "Screw",
+  "description": "Screw pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "screw_P1_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657105"
+  },
+  "name": "unmount-p2-a1652-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "unmount_P2_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657106"
+  },
+  "name": "unmount-p1-a1652-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "unmount_P1_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657107"
+  },
+  "name": "screw-p2-a1652-robot",
+  "type": "Screw",
+  "description": "Screw pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "screw_P2_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657108"
+  },
+  "name": "screw-p1-a1652-robot",
+  "type": "Screw",
+  "description": "Screw pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "screw_P1_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657109"
+  },
+  "name": "pickplace-p2-p3-a1610-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1610 from position p2 to position p3",
+  "target": "A1610",
+  "pick_goal": "p2",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710a"
+  },
+  "name": "pickplace-p0-p2-a1610-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1610 from position p0 to position p2",
+  "target": "A1610",
+  "pick_goal": "p0",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710b"
+  },
+  "name": "pickplace-p2-p3-a1653-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p2 to position p3",
+  "target": "A1653",
+  "pick_goal": "p2",
+  "place_goal": "p3",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710c"
+  },
+  "name": "unscrew-p2-a1653-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "unscrew_P2_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710d"
+  },
+  "name": "unscrew-p1-a1653-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "unscrew_P1_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710e"
+  },
+  "name": "mount-p1-a1652-robot",
+  "type": "Assembly",
+  "description": "Mount the pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "mount_P1_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265710f"
+  },
+  "name": "pickplace-p0-p2-a1652-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1652 from position p0 to position p2",
+  "target": "A1652",
+  "pick_goal": "p0",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657110"
+  },
+  "name": "mount-p2-a1652-robot",
+  "type": "Assembly",
+  "description": "Mount pallet a1652 in position p2",
+  "target": "A1610",
+  "goal": [
+    "mount_P2_A1652"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657111"
+  },
+  "name": "unscrew-p1-a1653-robot",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "unscrew_P1_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657112"
+  },
+  "name": "screw-p1-a1653-robot",
+  "type": "Screw",
+  "description": "Screw pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "screw_P1_A1653"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657113"
+  },
+  "name": "unmount-p1-a1653-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "unmount_P1_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657114"
+  },
+  "name": "mount-p1-a1653-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1653 in position p1",
+  "target": "A1653",
+  "goal": [
+    "mount_P1_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657115"
+  },
+  "name": "unscrew-p1-a1610-robot",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "unscrew_P1_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657116"
+  },
+  "name": "unmount-p1-a1610-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "unmount_P1_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657117"
+  },
+  "name": "screw-p2-a1610-robot",
+  "type": "Screw",
+  "description": "Screw pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "screw_P2_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657118"
+  },
+  "name": "unmount-p2-a1653-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "unmount_P2_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657119"
+  },
+  "name": "screw-p1-a1652-human",
+  "type": "Screw",
+  "description": "Screw pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "screw_P1_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711a"
+  },
+  "name": "unscrew-p2-a1652-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1652 in position p2",
+  "target": "A1652",
+  "goal": [
+    "unscrew_P2_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711b"
+  },
+  "name": "pickplace-p0-p1-a1610-human",
+  "type": "PickPlace",
+  "description": "Move pallet from position p0 to position p1",
+  "target": "A1610",
+  "pick_goal": "p0",
+  "place_goal": "p1",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711c"
+  },
+  "name": "unmount-p2-a1610-human",
+  "type": "Disassembly",
+  "description": "Unmount the pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "unmount_P2_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711d"
+  },
+  "name": "mount-p2-a1610-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "mount_P2_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711e"
+  },
+  "name": "mount-p1-a1610-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "mount_P1_A1610"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc265711f"
+  },
+  "name": "pickplace-p0-p2-a1653-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p0 to position p2",
+  "target": "A1653",
+  "pick_goal": "p0",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657120"
+  },
+  "name": "screw-p1-a1610-robot",
+  "type": "Screw",
+  "description": "Screw pallet a1610 in position p1",
+  "target": "A1610",
+  "goal": [
+    "screw_P1_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657121"
+  },
+  "name": "pickplace-p0-p1-a1653-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1653 from position p0 to position p1",
+  "target": "A1653",
+  "pick_goal": "p0",
+  "place_goal": "p1",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657122"
+  },
+  "name": "unscrew-p2-a1610-robot",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1610 in position p2",
+  "target": "A1610",
+  "goal": [
+    "unscrew_P2_A1610"
+  ],
+  "agent": [
+    "robot"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657123"
+  },
+  "name": "pickplace-p1-p2-a1610-human",
+  "type": "PickPlace",
+  "description": "Move the pallet a1610 from position p1 to position p2",
+  "target": "A1610",
+  "pick_goal": "p1",
+  "place_goal": "p2",
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657124"
+  },
+  "name": "mount-p2-a1653-human",
+  "type": "Assembly",
+  "description": "Mount the pallet a1653 in position p2",
+  "target": "A1653",
+  "goal": [
+    "mount_P2_A1653"
+  ],
+  "agent": [
+    "human"
+  ]
+},{
+  "_id": {
+    "$oid": "62d6e7c32d25960fc2657125"
+  },
+  "name": "unscrew-p1-a1652-human",
+  "type": "Unscrew",
+  "description": "Unscrew pallet a1652 in position p1",
+  "target": "A1652",
+  "goal": [
+    "unscrew_P1_A1652"
+  ],
+  "agent": [
+    "human"
+  ]
+}]
