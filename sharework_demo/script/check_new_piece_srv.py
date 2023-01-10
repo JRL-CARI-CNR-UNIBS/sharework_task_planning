@@ -20,8 +20,10 @@ class Station:
         self.state_ = False
         self.content_ = None
     def updateStationState(self,fixture_msg):
-        self.state_ = True
-        self.content_ = fixture_msg.content
+        if len(fixture_msg.content)>0:
+            self.state_ = True
+            self.content_ = fixture_msg.content.replace("A","a")
+
     def resetPiece(self,req):
         self.state_ = False
         self.content_ = None
@@ -33,13 +35,13 @@ class Station:
         else:
             response = TriggerResponse(False,None)
         return response
-        
-        
-    
+
+
+
 def main():
     rospy.init_node('check_new_piece', anonymous=True)
     rospy.loginfo(GREEN + "Check new piece service on" + END)
-    
+
     try:
         trigger_topic_name=rospy.get_param("/trigger_topic_name")
     except KeyError:
@@ -51,10 +53,10 @@ def main():
     reset_piece_srv = rospy.Service(SERVICE_NAME_RESET, Trigger, station_p0.resetPiece)
 
     station_p0_sub = rospy.Subscriber(trigger_topic_name,Fixture, station_p0.updateStationState)
-    
+
     rospy.spin()
 
-    
+
 
 if __name__ == "__main__":
     main()
