@@ -22,15 +22,6 @@ PEZZO = "A10"
 HUMAN = "human"
 ROBOT = "robot"
 
-def sendAgentFeedback(agent_name):
-    pub = rospy.Publisher("Non mi ricordo", MotionTaskExecutionFeedback, queue_size=10)
-    pub.publish(MotionTaskExecutionFeedback(1,1))
-
-def moveP0ToP2():
-    print("Fai un pò di cose")
-def newPallet():
-    print("New pallet")
-
 def my_quit_fn():
    raise SystemExit
 
